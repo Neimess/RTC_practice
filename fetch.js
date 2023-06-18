@@ -19,15 +19,19 @@ function sendRequest(url) {
             } 
             }
       // Replace the local URL with the external URL in the hrefs
-          const newHrefs = hrefs.map(href => href.replace("http://127.0.0.1:5500", "https://gallerix.ru")); 
+          const newHrefs = hrefs.map(href => href.replace(/.*\/album/, "https://gallerix.ru/album")); 
       // Filter the images and return the object with filtered images, artist name, and hrefs
         for (let i = 0; i < images.length; i++) {
           if (images[i].getAttribute('id') === 'xpic' || images[i].getAttribute('class') === 'rb3') {
             filteredImages.push(images[i]);
           }
         }
+        // Replace the local URL with the external URL in the hrefs
+        const newfilteredImages = filteredImages.map(img => {img.src = img.src.replace("file://", "https://")
+        return img;
+      })
         return {
-          filteredImages: filteredImages,
+          filteredImages: newfilteredImages,
           artistName: artistName,
           hrefs: newHrefs
         };
@@ -48,10 +52,9 @@ function sendRequest(url) {
       const img = document.createElement("img")
       img.src = data.filteredImages[i].src
       img.alt = data.filteredImages[i].alt
-      console.log(data.hrefs[i])
       // Set the meta data for the image based on its class and href
-      img.dataset.meta = (data.filteredImages[i].getAttribute('class') === 'xpic') ?
-      requestURL : data.hrefs[i-1]
+      img.dataset.meta = (data.filteredImages[i].getAttribute('id') === 'xpic') ?
+      requestURL: data.hrefs[i-1]
       // Add an onclick event to open the meta data in a new tab
       img.onclick = () => {
         window.open(img.dataset.meta, '_blank')
