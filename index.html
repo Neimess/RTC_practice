@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="apple-touch-icon" href="https://i.scdn.co/image/72f5da89f4f5e416aac37d0da2d2c6d276b3e032">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        #gallery {
+            text-align: center;
+        }
+        .flip-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            color: white;
+            font-size: 20px;
+            font-family: Georgia, sans-serif;
+        }
+        .fullscreen-btn {
+        width: 8; /* set the width to 100% of the viewport width */
+        height: 30vh; /* set the height to 100% of the viewport height */
+        background-color: #837550;
+        color: #000; /* set the text color to a desired value */
+        border: none;
+        padding: 30px 20px;
+        }
+        
+        .fullscreen-btn::after {
+        display: none;
+        }
+        .custom_quote {
+            box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        .container {
+            position: relative;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 40%;
+            width: 0px;
+            height: 0px;
+        }
+        .custom-menu {
+        background-color: #404040;
+        color: white;
+        width: 300px;
+        height: auto;
+        opacity: 0.85;
+        
+        }
+        .custom-menu .dropdown-item {
+    
+            color: white;
+        }
+
+        body {
+            background-image: url(https://celes.club/uploads/posts/2022-05/1652991498_3-celes-club-p-fon-dlya-prezentatsii-neitralnii-bezhevii-3.jpg);
+        }
+		/* Style the image pic container */
+		.pic {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		
+        .pic figure {
+			width: 300px;
+			height: 300px;
+			display: inline-flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .pic img {
+			width: 250px;
+			height: 250px;
+			object-fit: cover;
+            object-position: top;
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            max-width: 100%;
+			max-height: 100%;
+            
+		}
+        /* Style the pic images */
+        .pic figcaption {
+			margin-top: 2px;
+			font-size: 14px;
+			font-weight: normal;
+			text-align: center;
+            font-family: Georgia, sans-serif;
+			font-style: italic;
+            word-wrap: break-word
+		}
+        
+        .pic video {
+            object-position: center;
+        }
+        .portrait {
+        display: flex;
+        align-items: center;
+        }
+        .portrait img {
+        width: 400;
+        height: 400px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        margin-right: 100px;
+        }
+        
+        .input-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        }
+        input[type="text"] {
+        border: none;
+        outline: none;
+        font-size: 16px;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: transparent;
+        }
+            img:hover {
+        cursor: pointer;
+        }
+	</style>
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-*">
+                <a class="navbar-brand" href="#"><h1>Картинная галерея</h1></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                    <a class="nav-link" href="#Главная">Главная <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#About">О нас</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#excursion">Онлайн экскурсия <span class="sr-only">(current)</span></a>
+                    </li>
+                   
+                </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+<div class="container">
+    <aside class="sidebar">
+        <!-- Это блок боковой навигации -->
+    <div class="position-relative">
+        <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle position-static fullscreen-btn" type="button" 
+        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="flip-text">Оглавление</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right position-absolute custom-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#Vinci">Леонардо да Винчи</a>
+          <a class="dropdown-item" href="#Rafael">Рафаэль Санти</a>
+          <a class="dropdown-item" href="#Michelangelo">Микеланджело Буонарроти</a>
+          <a class="dropdown-item" href="#Artist">Картины по url Gallerix</a>
+        </div>
+    </div>
+</div>
+    </aside>
+    <main class="main-content">
+        <blockquote class="blockquote text-right custom_quote">
+            <p class="mb-0"><em>«Жизнь — это большая картина, и ты должен просто успеть нарисовать на ней всё, что хочешь.»</em></p>
+            <footer class="blockquote-footer">Гораций в 30 г. до н.э.</footer>
+            </blockquote>
+            <hr>
+    
+            <section id="Главная">
+            <p class = "text-danger"><strong>Сайт создан исключительно в образовательных целях, все материалы взяты из общего доступа
+                и использованы не для коммерческого использования. 
+            </strong></p>
+            </section>
+            <hr>
+            <section id="Vinci">
+            <h2>Леонардо да Винчи</h2>
+
+            <blockquote class="blockquote text-right custom_quote">
+                <p class="mb-0"><em>«Если ты назовешь живопись немой поэзией, то и живописец сможет сказать, что поэзия — это слепая живопись.»</em></p>
+                <footer class="blockquote-footer">Леонардо да Винчи</footer>
+                </blockquote>
+            <div class="portrait">
+            <img src="https://sr.gallerix.ru/V/369985082/20185559.jpg" alt="Портрет Леонардо Да Винчи , 
+            Аноним">
+           
+            <p><em>Леонардо да Винчи (15 апреля 1452 год – 2 мая 1519 год) – 
+                был знаменитым итальянским архитектором эпохи Возрождения, музыкантом, 
+                изобретателем, инженером, скульптором и гениальный художником. 
+                Он был описан как архетип «человека эпохи Возрождения» и универсального гения.
+                Леонардо широко известен своими уникальными картинами, такими как, «Мона Лиза» 
+                и «Тайная вечеря». Он также знаменит за свои многочисленные изобретения. 
+                К тому же, он помог в развитии анатомии, астрономии и градостроительства
+            </em></p>
+            </div>
+            <hr>
+            <h3 class="text-center">Знаменитые работы</h3>
+            <div class="pic">
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/1892879652.jpg" alt="Мона Лиза, 
+                    Леонардо да Винчи">
+                    <figcaption>Мона Лиза</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/2129753821.jpg" alt="Тайная вечеря,
+                    Леонардо да Винчи">
+                    <figcaption>Тайная вечеря</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/19241135.jpg" alt="Крещение Христа, 
+                    Леонардо да Винчи">
+                    <figcaption>Крещение Христа</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/1584600302.jpg" alt="Музыкант, 
+                    Леонардо да Винчи">
+                    <figcaption>Музыкант</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/311027006.jpg" alt="Мадонна Бенуа, 
+                    Леонардо да Винчи">
+                    <figcaption>Мадонна Бенуа</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://sr.gallerix.ru/V/369985082/411228900.jpg" alt="Иоанн Креститель (Вакх), 
+                    Леонардо да Винчи">
+                    <figcaption>Иоанн Креститель (Вакх)</figcaption>
+                </figure>
+            </div>
+            </section>
+            <hr>
+            
+            <section id="Rafael">
+            <h2>Рафаэль Санти</h2>
+            <blockquote class="blockquote text-right custom_quote">
+                <p class="mb-0"><em>«Лучше вовсе не знать, чем знать плохо то, что знаешь.»</em></p>
+                <footer class="blockquote-footer">Рафаэль Санти</footer>
+                </blockquote>
+                <hr>
+            <div class="portrait">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Raffaello_Sanzio.jpg/274px-Raffaello_Sanzio.jpg" alt="Портрет Рафаэля Санти">
+           
+            <p><em>Рафаэ́ль Са́нти — итальянский живописец, рисовальщик 
+                и архитектор умбрийской, флорентийской, а затем римской школы. 
+                Один из представителей искусства эпохи Высокого Возрождения, 
+                или «римского классицизма» начала XVI века. Он прожил всего тридцать 
+                семь лет и за свою недолгую жизнь стал одним из самых прославленных 
+                и богатых художников Италии. В своих произведениях Рафаэль воплотил представление 
+                о возвышенных идеалах ренессансного гуманизма, сумев соединить вечные, восходящие к античности, представления о красоте и новое христианское мироощущение.
+            </em></p>
+            <hr>
+            </div>
+            <hr>
+            <h3 class="text-center">Знаменитые работы</h3>
+            <div class="pic">
+                <figure>
+                    <img src="https://sr.gallerix.ru/_UNK/3575090783/411491371.jpg" alt="Святой Михаил и дьявол, 
+                Рафаэ́ль Санти">
+                <figcaption>Святой Михаил и дьявол</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/_EX/1593896443/4515.jpg" alt="Преображение Господне, 
+                    Рафаэ́ль Са́нти">
+                    <figcaption>Преображение Господне</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/_EX/1593896443/202090454.jpg" alt="Обручение Девы Марии, 
+                    Рафаэ́ль Са́нти">
+                    <figcaption>Обручение Девы Марии</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="https://sr.gallerix.ru/_EX/1593896443/1415.jpg" alt="Мадонна дель Пасседжио, Рафаэ́ль Санти">
+                    <figcaption>Мадонна дель Пасседжио</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/_EX/1593896443/655331420.jpg" alt="Сикстинская Мадонна, 
+                    Рафаэ́ль Санти">
+                    <figcaption>Сикстинская Мадонна</figcaption>
+                </figure>
+    
+
+
+            </div>
+            </section>
+            
+            <section id="Michelangelo">
+            <h2>Микела́нджело Буонарро́ти</h2>
+            <blockquote class="blockquote text-right custom_quote">
+                <p class="mb-0"><em>«Когда я вижу человека талантливого или умного, который в чем-то искусней или красноречивей других, я не могу не влюбиться 
+                    в него и тогда отдаюсь ему безраздельно, так что уже перестаю принадлежать себе.»</em></p>
+                <footer class="blockquote-footer">Микела́нджело Буонарро́ти</footer>
+                </blockquote>
+            <div class="portrait">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Miguel_%C3%81ngel%2C_por_Daniele_da_Volterra_%28detalle%29.jpg/405px-Miguel_%C3%81ngel%2C_por_Daniele_da_Volterra_%28detalle%29.jpg" alt="Портрет Микела́нджело">
+            <hr>
+            <p><em>Микела́нджело Буонарро́ти (полное имя Микела́нджело 
+                ди Лодови́ко ди Леона́рдо ди Буонарро́ти Симо́ни; Один из крупнейших мастеров эпохи Высокого Возрождения и раннего барокко — именно его считают подлинным «отцом барокко» в архитектуре.
+            </em></p>
+            <hr>
+            </div>
+            <hr>
+            <h3 class="text-center">Знаменитые работы</h3>
+            <div class="pic">
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/958971456.jpg" alt="Тондо Дони">
+                <figcaption>Тондо Дони</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/2468.jpg" alt="Сотворение Адама">
+                    <figcaption>Сотворение Адама</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/1678.jpg" alt="Сотворение Евы">
+                    <figcaption>Сотворение Евы</figcaption>
+                </figure>
+                
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/2120864020.jpg" alt="Грехопадение и Изгнание из рая">
+                    <figcaption>Грехопадение и Изгнание из рая</figcaption>
+                </figure>
+    
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/942159483.jpg" alt="Распятие святого Петра">
+                    <figcaption>Распятие святого Петра</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://sr.gallerix.ru/M/1161425349/65573536.jpg" alt="РОбращение святого Павла">
+                    <figcaption>Обращение святого Павла</figcaption>
+                </figure>
+            </div>
+            </section>
+            <br>
+            <br> 
+            <section id="Artist">
+            <div class="input-wrapper">
+                <input type="url" 
+                id = "URLRequest" 
+                placeholder="Введите url"
+                class = "form-control">
+                <button id="loadButton" class = 'btn btn-outline-success'>Отправить запрос</button>
+            </div>
+            <br>
+            <br>  
+            <h2 id = artist></h2>
+            <hr>
+            <h3 class="text-center" id = 'heading_author' style = "display: none;">Знаменитые работы</h3>
+            <hr>
+            <script src = "fetch.js"></script>
+            <div class = "pic">
+            <span id="gallery"></span>
+            </div>
+            </section>
+        
+        <section id="excursion">
+        <h2>Онлайн экскурсия</h2>
+        <hr>
+            <p>Дворец Лувра находится в Париже и является исторической ценностью, 
+                так как это старинный королевский замок. Рядом с ним находятся другие 
+                известные достопримечательности, это сад Тюирли, а также знаменитая церковь 
+                Сен-Жермен-л’Осеруа. Сам дворец раскинулся возле берега 
+                прекрасной реки Сены. Он считается самым богатым музеем во всем мире, 
+                его краткое название — Лувр.</p>
+            <p>Окунитесь в незабываемое путешествие с нашим онлайн гидом.</p>
+            <div class ="pic">
+            <title>Онлайн экскурсия</title>
+            <iframe controls autoplay width="560" height="300" src="https://www.youtube.com/embed/hGtxqkbovjo?mute=1" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+    </main>
+  </div>
+<footer class="bg-light text-center text-lg-start">
+    <section id="About"></section>
+    <div class="container p-4">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">О нас</h5>
+          <p>
+           Студент третьего курса политехнического университета, проект выполнен в целях практической работы.
+          </p>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-center text-lg-start">Контакты</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+
+              <a href="tel:+7900000000!" class="text-dark">+7900000000</a>
+            </li>
+            <li>
+                <a href="https://t.me/Neimes" target = "_blank" text-dark">Telegram</a>
+            </li>
+            <li>
+                <a href="https://vk.com/maksimgwr" target = "_blank" text-dark">Вконтакте</a>
+            </li>
+          </ul>
+        </div>
+            </div>
+        </div>
+    </div>
+  
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Права не защищены
+    </div>
+</footer> 
+</body>
+</html>
