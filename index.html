@@ -12,6 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
     <style>
+        .button-row {
+            text-align: center;
+        }
+        .button-row button {
+        display: inline-block;
+        width: 100px;
+        margin-right: 10px; /* Optional margin between buttons */
+        }
         #gallery {
             text-align: center;
         }
@@ -187,6 +195,8 @@
           <a class="dropdown-item" href="#Rafael">Рафаэль Санти</a>
           <a class="dropdown-item" href="#Michelangelo">Микеланджело Буонарроти</a>
           <a class="dropdown-item" href="#Artist">Картины по url Gallerix</a>
+          <a class="dropdown-item" href="#video">Видео</a>
+          <a class="dropdown-item" href="#canvas_api">Canvas</a>
         </div>
     </div>
 </div>
@@ -392,6 +402,35 @@
             </div>
             </section>
         
+        <section id = video>
+        <h2>Video Player</h2>
+        <form>
+            <label for="video-file">Choose a video file:</label>
+            <input type="file" id="video-file" name="video-file" accept="video/*" class = "input-wrapper">
+            </form>
+        <div class = "pic">
+        <video id="video-player" width="640" height="360" controls loop style="display: none;">
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        <script src = "video.js"></script>
+        </section>
+        <br>
+        <section id = "canvas_api">
+            <h2>Canvas API</h2>
+            <div class = "my_canvas">
+            
+            <div class = "button-row">
+            <button id="CanvasButton" class = 'btn bg-white'>Start Canvas</button>
+            <button id="StopVideo" class = "btn bg-white" style="display: none">Stop Video</button>
+            <button id="PlayVideo" class = "btn bg-white" style="display: none">Play Video</button>
+            <button id="DownloadFrame" class = "btn bg-white" style="display: none">Download Frame</button>
+            </div>
+            </div>
+            <canvas id = "canvas"></canvas>
+            <script src = "canvas.js"></script>
+            <div class = "pic"></div>
+        </section>
         <section id="excursion">
         <h2>Онлайн экскурсия</h2>
         <hr>
@@ -409,6 +448,7 @@
     </section>
     </main>
   </div>
+</div>
 <footer class="bg-light text-center text-lg-start">
     <section id="About"></section>
     <div class="container p-4">
